@@ -41,7 +41,7 @@ class World:
     def move(self, now, action):
         ds = [(-1, 0), (1, 0), (0, -1), (0, 1)]
         d = ds[action]
-        next = (now[0] + d[0], now[0] + d[1])
+        next = (now[0] + d[0], now[1] + d[1])
         ny, nx = next
 
         if ny < 0 or ny >= self.height or nx < 0 or nx >=self.width:
