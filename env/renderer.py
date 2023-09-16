@@ -56,7 +56,7 @@ class Renderer:
                 r = self.map[y, x]
                 if r != 0 and r is not None:
                     txt = 'R ' + str(r)
-                    if state in self.walls:
+                    if state == self.goal:
                         txt = txt + ' (GOAL)'
                     ax.text(x+.1, ys-y-0.9, txt)
 
@@ -110,7 +110,7 @@ class Renderer:
                     r = self.map[y, x]
                     if r != 0 and r is not None:
                         txt = 'R ' + str(r)
-                        if state in self.walls:
+                        if state == self.goal:
                             txt = txt + ' (GOAL)'
                         ax.text(x+.05, ys-y-0.95, txt)
 
