@@ -7,11 +7,11 @@ class World:
         self.map = np.array([
             [0., 0.,   0.,  1.],
             [0., None, 0., -1.],
-            [0., 0.,   0.,  0.]
+            [0., 0.,   0,  0.]
         ])
 
         self.goal = (0, 3)
-        self.wall = (1, 1)
+        self.walls = [(1, 1)]
         self.start = (2, 0)
         self.agent = self.start
 
@@ -32,6 +32,12 @@ class World:
             for w in range(self.width):
                 yield (h, w)
 
+    def iswall(self, coord):
+        return coord in self.walls
+
+    def isgoal(self, coord):
+        return coord == self.goal
+
     def move(self, now, action):
         ds = [(-1, 0), (1, 0), (0, -1), (0, 1)]
         d = ds[action]
@@ -40,13 +46,13 @@ class World:
 
         if ny < 0 or ny >= self.height or nx < 0 or nx >=self.width:
             return now
-        if next == self.wall:
+        if next in self.walls:
             return now
 
         return next
 
     def reward(self, state, action, next):
-        return self.map[state]
+        return self.map[next]
 
     def reset(self):
         self.agent = self.start
@@ -63,9 +69,9 @@ class World:
         return next, reward, done
 
     def render_v(self, v=None, policy=None, print=True):
-        renderer = Renderer(self.map, self.goal, self.wall)
+        renderer = Renderer(self.map, self.goal, self.walls)
         renderer.render_v(v, policy, print)
 
     def render_q(self, q=None, print=True):
-        renderer = Renderer(self.map, self.goal, self.wall)
+        renderer = Renderer(self.map, self.goal, self.walls)
         renderer.render_q(q, print)
